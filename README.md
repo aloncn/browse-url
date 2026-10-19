@@ -71,14 +71,7 @@ npx skills add aloncn/browse-url -g -a claude-code -a codex -y
 
 ### 2) Get the `browse` command
 
-**Option A — no install, run straight from GitHub:**
-
-```bash
-npx -y github:aloncn/browse-url text "https://example.com"
-npx -y github:aloncn/browse-url console "http://localhost:3000" --seconds 5
-```
-
-**Option B — install once so `browse` is on your PATH (recommended):**
+**Option A — install once so `browse` is on your PATH (recommended):**
 
 ```bash
 git clone --depth 1 https://github.com/aloncn/browse-url.git
@@ -86,8 +79,16 @@ cd browse-url && ./install.sh
 ```
 
 `install.sh` installs the single dependency (`playwright-core`), symlinks
-`cli/browse.mjs` → `~/.local/bin/browse`, and (re)installs the skill locally, mirroring it into
-`~/.claude/skills/` when that directory exists.
+`cli/browse.mjs` → `~/.local/bin/browse`, and (re)installs the skill locally.
+
+**Option B — no clone, run straight from GitHub:**
+
+```bash
+npx -y github:aloncn/browse-url text "https://example.com"
+```
+
+This works, but the first run makes npm clone the repo and install dependencies, so it can be
+slow (or stall) on networks where npm→GitHub git traffic is throttled. Prefer Option A there.
 
 Either way you need **Google Chrome** installed — this tool drives your Chrome, it does not
 download a browser.
@@ -96,6 +97,24 @@ Smoke test:
 
 ```bash
 browse text "data:text/html,<h1>hello</h1>"
+```
+
+### Which skill language gets installed?
+
+`npx skills add` copies the whole skill directory, so both files land in
+`~/.agents/skills/browse-url/`; agents read `SKILL.md`. The default `SKILL.md` is English.
+To use the Chinese variant:
+
+```bash
+cp ~/.agents/skills/browse-url/SKILL.zh-CN.md ~/.agents/skills/browse-url/SKILL.md
+```
+
+### Targeting one agent instead of all
+
+Without `-a`, the CLI links the skill into every agent it detects (70+). To keep it tight:
+
+```bash
+npx skills add aloncn/browse-url -g -a claude-code -y
 ```
 
 ## Commands

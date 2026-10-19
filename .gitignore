@@ -4,3 +4,4 @@ node_modules/
 # local screenshots
 *.png
 !docs/**/*.png
+*.tgz
