@@ -14,6 +14,21 @@ headless 默认，视口 1440×900，默认超时 20s。
 console error/warning、未捕获异常（pageerror）、失败请求（requestfailed）、4xx/5xx 响应——
 排查前端问题**先看它**。
 
+## 安装（仅当 `browse` 命令不存在时需要）
+
+```bash
+# 只装技能（任意 agent）：
+npx skills add aloncn/browse-url -g
+
+# 命令：临时用…
+npx -y github:aloncn/browse-url text "https://example.com"
+# …或常驻安装（把 browse 放进 PATH）：
+git clone --depth 1 https://github.com/aloncn/browse-url.git && ./browse-url/install.sh
+```
+
+若 `browse` 不在 `PATH`，降级用 `npx -y github:aloncn/browse-url <同样的参数>`。
+需要本机已安装 Google Chrome（驱动你的 Chrome，不下载内核）。
+
 ## 三条命令覆盖大部分需求
 
 ```bash

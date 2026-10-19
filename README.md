@@ -55,18 +55,42 @@ only for one-off exploration of sites you do not control.
 
 ## Install
 
+### 1) Install the skill (any agent, one command)
+
 ```bash
-git clone git@github.com:aloncn/browse-url.git
-cd browse-url
-./install.sh            # installs deps, links `browse` into PATH, installs the AI skill
+npx skills add aloncn/browse-url -g
 ```
 
-`install.sh` will:
+`npx skills` (the open agent-skills CLI, 70+ agents: Claude Code, Codex, Cursor, OpenCode, …)
+clones this repo, finds `skills/browse-url/SKILL.md`, and links it into your agent's global
+skills directory. Pick agents explicitly if you prefer:
 
-1. `npm install` (or `pnpm add`) the single dependency, `playwright-core`
-2. symlink `cli/browse.mjs` → `~/.local/bin/browse` (first writable dir on `PATH`)
-3. copy the skill to `~/.agents/skills/browse-url/` and mirror it into `~/.claude/skills/`
-   when that directory exists
+```bash
+npx skills add aloncn/browse-url -g -a claude-code -a codex -y
+```
+
+### 2) Get the `browse` command
+
+**Option A — no install, run straight from GitHub:**
+
+```bash
+npx -y github:aloncn/browse-url text "https://example.com"
+npx -y github:aloncn/browse-url console "http://localhost:3000" --seconds 5
+```
+
+**Option B — install once so `browse` is on your PATH (recommended):**
+
+```bash
+git clone --depth 1 https://github.com/aloncn/browse-url.git
+cd browse-url && ./install.sh
+```
+
+`install.sh` installs the single dependency (`playwright-core`), symlinks
+`cli/browse.mjs` → `~/.local/bin/browse`, and (re)installs the skill locally, mirroring it into
+`~/.claude/skills/` when that directory exists.
+
+Either way you need **Google Chrome** installed — this tool drives your Chrome, it does not
+download a browser.
 
 Smoke test:
 
@@ -150,8 +174,8 @@ Persistent profile at `~/.browser-profiles/<profile>` (cookies + localStorage).
 
 `skills/browse-url/SKILL.md` (English) and `SKILL.zh-CN.md` (Chinese) describe when an agent
 should reach for the browser instead of `web_fetch`, the exact commands, and the pitfalls above.
-Skill-aware agents (Claude Code, and anything reading `~/.agents/skills/`) pick it up
-automatically after `install.sh`.
+Skill-aware agents pick it up automatically after `npx skills add aloncn/browse-url -g`
+(or after `install.sh`, which also drops it into `~/.agents/skills/browse-url/`).
 
 For agents without a skill mechanism, paste a short version into their instructions file
 (`AGENTS.md`, `GEMINI.md`, …):

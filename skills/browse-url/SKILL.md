@@ -14,6 +14,21 @@ Every command prints JSON: `{ ok, url, ..., diagnostics }`. `diagnostics` alread
 console errors/warnings, uncaught exceptions (`pageerror`), failed requests
 (`requestfailed`) and any 4xx/5xx response — **check it first** when debugging a front end.
 
+## Setup (only if `browse` is missing)
+
+```bash
+# skill only (any agent):
+npx skills add aloncn/browse-url -g
+
+# the command, either ad-hoc…
+npx -y github:aloncn/browse-url text "https://example.com"
+# …or installed permanently (puts `browse` on PATH):
+git clone --depth 1 https://github.com/aloncn/browse-url.git && ./browse-url/install.sh
+```
+
+If `browse` is not on `PATH`, fall back to `npx -y github:aloncn/browse-url <same args>`.
+Requires Google Chrome (drives your installed Chrome; no browser download).
+
 ## Three commands cover most needs
 
 ```bash

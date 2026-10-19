@@ -16,9 +16,9 @@ MODE=${1:-all}
 # 1) dependencies
 if [ "$MODE" = "all" ] || [ "$MODE" = "cli" ]; then
   command -v node >/dev/null 2>&1 || { echo "error: node is required"; exit 1; }
-  if [ ! -d "$ROOT/cli/node_modules" ]; then
-    echo "==> installing cli dependencies (playwright-core)"
-    (cd "$ROOT/cli" && (command -v pnpm >/dev/null 2>&1 && pnpm add playwright-core || npm install))
+  if [ ! -d "$ROOT/node_modules" ]; then
+    echo "==> installing dependencies (playwright-core)"
+    (cd "$ROOT" && (command -v pnpm >/dev/null 2>&1 && pnpm install --prod || npm install --omit=dev))
   fi
 
   # pick a writable dir on PATH

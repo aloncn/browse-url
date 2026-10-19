@@ -1,0 +1,38 @@
+{
+  "name": "browse-url",
+  "version": "0.1.0",
+  "description": "Let your AI coding agent drive your real Chrome (with your logins): screenshots, visible text, console errors, failed requests — as JSON.",
+  "type": "module",
+  "bin": {
+    "browse": "cli/browse.mjs"
+  },
+  "files": [
+    "cli",
+    "skills"
+  ],
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "smoke": "node cli/browse.mjs text \"data:text/html,<h1>ok</h1>\""
+  },
+  "dependencies": {
+    "playwright-core": "^1.64.1"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aloncn/browse-url.git"
+  },
+  "keywords": [
+    "ai-agent",
+    "coding-agent",
+    "playwright",
+    "chrome",
+    "cli",
+    "browser-automation",
+    "screenshot",
+    "console-errors",
+    "agent-skill"
+  ]
+}
